@@ -1,0 +1,153 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0
+      author: luc
+      comment: "Create table account"
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_data
+                  type: date
+                  constraints:
+                  nullable: false
+              - column:
+                  name: surname
+                  type: varchar(45)
+                  constraints:
+                  nullable: false
+              - column:
+                  name: birthdate
+                  type: date
+                  constraints:
+                  nullable: false
+  - changeSet:
+      id: 2.0.0
+      author: luc
+      comment: "Create table skill"
+      changes:
+        - createTable:
+            tableName: skill
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(45)
+                  constraints:
+                  nullable: false
+              - column:
+                  name: developer_id
+                  type: int
+                  constraints:
+                  nullable: false
+                  foreignKeyName: developer_skill_id_skill_fk
+                  references: developer(id)
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+  - changeSet:
+      id: 3.0.0
+      author: luc
+      comment: "Create table developer"
+      changes:
+        - createTable:
+            tableName: developer
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(45)
+                  constraints:
+                  nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(45)
+                  constraints:
+                  nullable: false
+              - column:
+                  name: specialty
+                  type: varchar(45)
+                  constraints:
+                  nullable: false
+              - column:
+                  name: account_id
+                  type: int
+                  constraints:
+                  nullable: false
+                  foreignKeyName: developer_account_id_account_fk
+                  references: account(id)
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+
+  - changeSet:
+      id: 4.0.0
+      author: luc
+      comment: "Insert into account"
+      changes:
+        - sql:
+            sql: insert into account(id, account_data) VALUES (1, '2019-08-13')
+        - sql:
+            sql: insert into account(id, account_data) VALUES (2, '2019-01-04')
+        - sql:
+            sql: insert into account(id, account_data) VALUES (3, '2019-01-28')
+        - sql:
+            sql: insert into account(id, account_data) VALUES (4, '2020-01-08')
+        - sql:
+            sql: insert into account(id, account_data) VALUES (5, '2020-01-12')
+  - changeSet:
+      id: 5.0.0
+      author: luc
+      comment: "Insert into developer"
+      changes:
+        - sql:
+            sql: insert into developer(id, first_name, last_name, specialty, account_id)  VALUES (1,'Piter','Frank',
+            'DevPos', 1)
+        - sql:
+            sql: insert into developer(id, first_name, last_name, specialty, account_id)  VALUES (2,'Mash','Gog',
+              'DevPos', 2)
+        - sql:
+            sql: insert into developer(id, first_name, last_name, specialty, account_id)  VALUES (3,'Nata','Lol',
+              'DevPos', 4)
+        - sql:
+            sql: insert into developer(id, first_name, last_name, specialty, account_id)  VALUES (4,'Carmen','Bob',
+              'SEO', 3)
+        - sql:
+            sql: insert into developer(id, first_name, last_name, specialty, account_id)  VALUES (5,'Kol','Oksd',
+              'Manager', 6)
+  - changeSet:
+      id: 6.0.0
+      author: luc
+      comment: "Insert into skill"
+      changes:
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (1, 'Java', 3)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (2, 'PHP', 3)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (3, 'JS', 4)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (4, 'C++', 1)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (5, 'C#', 1)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (6, 'Python', 2)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (7, 'Java', 5)
+        - sql:
+            sql: insert into skill(id, name, developer_fk) VALUES (8, 'C#', 5)
